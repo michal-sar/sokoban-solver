@@ -1,0 +1,19 @@
+.WallLeft {
+  margin: 32px auto 0 calc(15% - 16px);
+  position: absolute;
+  width: 12px;
+}
+
+.WallMiddle {
+  background-image: url(/public/images/wall-middle.svg);
+  height: 60px;
+  margin: 32px 0 0 calc(15% - 4px);
+  position: absolute;
+  width: 70%;
+}
+
+.WallRight {
+  margin: 32px calc(15% - 4px) 0 auto;
+  width: 16px;
+  z-index: 1;
+}

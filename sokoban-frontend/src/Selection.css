@@ -1,0 +1,60 @@
+.levelButtons {
+  white-space: nowrap;
+}
+
+.levelButton {
+  background-color: #aaa;
+  border-color: #111;
+  border-width: 4px;
+  color: #1af;
+  font-family: "VT323", monospace;
+  font-size: 5rem;
+  margin: 4px 0 36px 4px;
+  text-align: center;
+  width: 90px;
+  -webkit-text-stroke-color: #111;
+  -webkit-text-stroke-width: 3.33px;
+}
+
+#last {
+  margin-right: 4px;
+}
+
+.methodButtons {
+  bottom: 88px;
+  display: flex;
+  justify-content: center;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, 0);
+}
+
+.methodButton {
+  background-color: #aaa;
+  border-color: #111;
+  border-width: 4px;
+  color: #1af;
+  font-family: "VT323", monospace;
+  font-size: 4rem;
+  height: 90px;
+  margin: 0 2px;
+  padding: 0 15.4px;
+  text-align: center;
+  white-space: nowrap;
+  -webkit-text-stroke-color: #111;
+  -webkit-text-stroke-width: 2.66px;
+}
+
+button:hover,
+button.active {
+  background-color: #999;
+  color: #f1a;
+  cursor: pointer;
+}
+
+button:disabled {
+  border-color: #111;
+  border-width: 4px;
+  opacity: 0.5;
+  pointer-events: none;
+}

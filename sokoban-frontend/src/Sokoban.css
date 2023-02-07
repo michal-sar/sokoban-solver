@@ -1,0 +1,24 @@
+.sokoban {
+  display: flex;
+  height: auto;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+}
+
+.layer {
+  margin: 32px;
+  max-height: calc(100vh - 180px - 404px);
+}
+
+#layer0 {
+  position: absolute;
+}
+
+#layer1 {
+  position: absolute;
+}
+
+:focus {
+  outline: none;
+}
