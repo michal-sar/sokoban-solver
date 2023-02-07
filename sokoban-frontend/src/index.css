@@ -1,0 +1,55 @@
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+
+::selection {
+  background: #f11;
+  color: #aaa;
+}
+
+body {
+  background-image: url(/public/images/wall-background.svg);
+  background-attachment: fixed;
+  background-size: 48px;
+  margin: 0;
+  overflow: hidden;
+}
+
+footer {
+  background-color: #aaa;
+  bottom: 0;
+  color: #aaa;
+  font-family: "VT323", monospace;
+  font-size: 3rem;
+  outline: #999 solid 4px;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  -webkit-text-stroke-color: #111;
+  -webkit-text-stroke-width: 2px;
+}
+
+a {
+  color: #1af;
+  text-decoration: none;
+  -webkit-text-stroke-color: #111;
+  -webkit-text-stroke-width: 2px;
+}
+
+a:hover {
+  color: #f1a;
+}
+
+.simplebar-track.simplebar-horizontal .simplebar-scrollbar:before {
+  background-image: url(/public/images/box-slider.svg);
+  background-size: 230px;
+  opacity: 1;
+}
+
+.simplebar-scrollbar:before {
+  border-radius: 0;
+  top: 0;
+  height: 32px;
+}
+
+.simplebar-track.simplebar-horizontal {
+  height: 32px;
+}
