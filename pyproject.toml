@@ -5,7 +5,7 @@ description = "..."
 authors = ["Michał Sar"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "sokoban_backend"}]
+packages = [{include = "sokoban-solver"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
