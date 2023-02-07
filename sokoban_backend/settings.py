@@ -88,7 +88,6 @@ WSGI_APPLICATION = 'sokoban_backend.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        # Feel free to alter this value to suit your needs.
         default='postgres://sokoban_levels_25im_user:LLFR57zMeZuRIjbTGAwIu2WIXwSfFwEx@dpg-cfgj801gp3jjsedi9vp0-a.frankfurt-postgres.render.com/sokoban_levels_25im',
         conn_max_age=600
     )
