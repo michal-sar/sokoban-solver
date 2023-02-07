@@ -88,7 +88,6 @@ WSGI_APPLICATION = 'sokoban_backend.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        # Feel free to alter this value to suit your needs.
         default='REMOVED',
         conn_max_age=600
     )
