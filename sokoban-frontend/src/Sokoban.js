@@ -577,7 +577,8 @@ function Sokoban(props) {
         }
 
         async function handleOutput() {
-          await animatePath(layer1.current, board, this.data);
+          if (!state.player)
+            await animatePath(layer1.current, board, this.data);
           if (!state.player) pengine.next();
         }
 
