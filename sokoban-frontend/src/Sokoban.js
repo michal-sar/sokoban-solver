@@ -275,10 +275,6 @@ function drawRestVertical(
   }
 }
 
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 function checkVictory(board) {
   for (let i = 0; i < board.length; i++) {
     if (board[i].indexOf("x") != -1 || board[i].indexOf("*") != -1) {
@@ -405,70 +401,68 @@ async function animatePath(layer, board, path) {
     move = path.shift();
     if (movePossible(boardCopy, move)) {
       position = 0;
-      interval = setInterval(frame, 15);
-      await sleep(13 * 15);
-      boardCopy = makeMove(boardCopy, move);
 
-      if (checkVictory(boardCopy)) await dance(layer, boardCopy);
+      await new Promise((resolve) => {
+        interval = setInterval(() => {
+          if (position == 11) {
+            resolve();
+          }
+
+          position++;
+
+          let sokobanX;
+          let sokobanY;
+
+          for (sokobanY = 0; sokobanY < board.length; sokobanY++) {
+            if (boardCopy[sokobanY].includes("o")) {
+              sokobanX = boardCopy[sokobanY].indexOf("o");
+              break;
+            }
+            if (boardCopy[sokobanY].includes("*")) {
+              sokobanX = boardCopy[sokobanY].indexOf("*");
+              break;
+            }
+          }
+
+          switch (move) {
+            case "n":
+              // prettier-ignore
+              boardCopy[sokobanY - 1][sokobanX] == '0' ||
+                boardCopy[sokobanY - 1][sokobanX] == '1'
+                  ? drawRestVertical(layer, boardCopy, 0, -position, 0, -position, sokobanX, sokobanY - 1, 2)
+                  : drawRestVertical(layer, boardCopy, 0, -position);
+              break;
+            case "s":
+              // prettier-ignore
+              boardCopy[sokobanY + 1][sokobanX] == '0' ||
+                boardCopy[sokobanY + 1][sokobanX] == '1'
+                  ? drawRestVertical(layer, boardCopy, 0, position, 0, position, sokobanX, sokobanY + 1, 6)
+                  : drawRestVertical(layer, boardCopy, 0, position);
+              break;
+            case "e":
+              state.direction = "e";
+              // prettier-ignore
+              boardCopy[sokobanY][sokobanX + 1] == '0' ||
+                boardCopy[sokobanY][sokobanX + 1] == '1'
+                  ? drawRestHorizontal(layer, boardCopy, position, 0, position, 0, sokobanX + 1, sokobanY, 5)
+                  : drawRestHorizontal(layer, boardCopy, position, 0);
+              break;
+            case "w":
+              state.direction = "w";
+              // prettier-ignore
+              boardCopy[sokobanY][sokobanX - 1] == '0' ||
+                boardCopy[sokobanY][sokobanX - 1] == '1'
+                  ? drawRestHorizontal(layer, boardCopy, -position, 0, -position, 0, sokobanX - 1, sokobanY, 4)
+                  : drawRestHorizontal(layer, boardCopy, -position, 0);
+              break;
+          }
+        }, 15);
+      }).then(() => {
+        clearInterval(interval);
+        if (path.length) boardCopy = makeMove(boardCopy, move);
+      });
     }
     if (initial != state.player) break;
-  }
-
-  state.ready = true;
-
-  function frame() {
-    if (position == 12) {
-      clearInterval(interval);
-    } else {
-      position++;
-
-      let sokobanX;
-      let sokobanY;
-
-      for (sokobanY = 0; sokobanY < board.length; sokobanY++) {
-        if (boardCopy[sokobanY].includes("o")) {
-          sokobanX = boardCopy[sokobanY].indexOf("o");
-          break;
-        }
-        if (boardCopy[sokobanY].includes("*")) {
-          sokobanX = boardCopy[sokobanY].indexOf("*");
-          break;
-        }
-      }
-
-      switch (move) {
-        case "n":
-          // prettier-ignore
-          boardCopy[sokobanY - 1][sokobanX] == '0' ||
-          boardCopy[sokobanY - 1][sokobanX] == '1'
-            ? drawRestVertical(layer, boardCopy, 0, -position, 0, -position, sokobanX, sokobanY - 1, 2)
-            : drawRestVertical(layer, boardCopy, 0, -position);
-          break;
-        case "s":
-          // prettier-ignore
-          boardCopy[sokobanY + 1][sokobanX] == '0' ||
-          boardCopy[sokobanY + 1][sokobanX] == '1'
-            ? drawRestVertical(layer, boardCopy, 0, position, 0, position, sokobanX, sokobanY + 1, 6)
-            : drawRestVertical(layer, boardCopy, 0, position);
-          break;
-        case "e":
-          state.direction = "e";
-          // prettier-ignore
-          boardCopy[sokobanY][sokobanX + 1] == '0' ||
-          boardCopy[sokobanY][sokobanX + 1] == '1'
-            ? drawRestHorizontal(layer, boardCopy, position, 0, position, 0, sokobanX + 1, sokobanY, 5)
-            : drawRestHorizontal(layer, boardCopy, position, 0);
-          break;
-        case "w":
-          state.direction = "w";
-          // prettier-ignore
-          boardCopy[sokobanY][sokobanX - 1] == '0' ||
-          boardCopy[sokobanY][sokobanX - 1] == '1'
-            ? drawRestHorizontal(layer, boardCopy, -position, 0, -position, 0, sokobanX - 1, sokobanY, 4)
-            : drawRestHorizontal(layer, boardCopy, -position, 0);
-          break;
-      }
-    }
   }
 }
 
@@ -524,7 +518,7 @@ function Sokoban(props) {
 
   let board;
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = async (event) => {
     if (method != "player") return;
     event.preventDefault();
     if (!state.ready) return;
@@ -532,8 +526,10 @@ function Sokoban(props) {
     if (!direction) return;
     if (!movePossible(board, direction) || state.victory) return;
 
-    animatePath(layer1.current, board, [direction]);
+    await animatePath(layer1.current, board, [direction]);
     board = makeMove(board, direction);
+    if (checkVictory(board)) dance(layer1.current, board);
+    else state.ready = true;
   };
 
   async function loadLevel() {
@@ -581,7 +577,6 @@ function Sokoban(props) {
         }
 
         async function handleOutput() {
-          console.log(this.data);
           await animatePath(layer1.current, board, this.data);
           if (!state.player) pengine.next();
         }
