@@ -395,8 +395,6 @@ async function animatePath(layer, board, path) {
   let boardCopy = [];
   for (let i = 0; i < board.length; i++) boardCopy[i] = board[i].slice();
 
-  let initial = state.player;
-
   while (path.length) {
     move = path.shift();
     if (movePossible(boardCopy, move)) {
@@ -462,7 +460,7 @@ async function animatePath(layer, board, path) {
         if (path.length) boardCopy = makeMove(boardCopy, move);
       });
     }
-    if (initial != state.player) break;
+    if (state.player) break;
   }
 }
 
