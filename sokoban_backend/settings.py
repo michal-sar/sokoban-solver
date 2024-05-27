@@ -25,7 +25,8 @@ FRONTEND_DIR = BASE_DIR / 'sokoban-frontend'
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', default='django-insecure-=lqhfgqy79*mov=yd^4!5j7*2ykk3igms+yhu69w96cny22($y')
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY', default='django-insecure-=lqhfgqy79*mov=yd^4!5j7*2ykk3igms+yhu69w96cny22($y')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -88,7 +89,7 @@ WSGI_APPLICATION = 'sokoban_backend.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgres://sokoban_levels_25im_user:LLFR57zMeZuRIjbTGAwIu2WIXwSfFwEx@dpg-cfgj801gp3jjsedi9vp0-a.frankfurt-postgres.render.com/sokoban_levels_25im',
+        default='postgres://sokoban_levels_xvn1_user:SBfUnRY5KvO7lPIVc9a12QBQOctfMiIp@dpg-cpa327tds78s73cq6nag-a.frankfurt-postgres.render.com/sokoban_levels_xvn1',
         conn_max_age=600
     )
 }
@@ -139,6 +140,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # if not DEBUG:
 STATIC_ROOT = os.path.join(FRONTEND_DIR, 'dist')
-STATICFILES_STORAGE = ('whitenoise.storage.CompressedManifestStaticFilesStorage')
+STATICFILES_STORAGE = (
+    'whitenoise.storage.CompressedManifestStaticFilesStorage')
 
 # WHITENOISE_ROOT = FRONTEND_DIR / 'dist' / 'root'
