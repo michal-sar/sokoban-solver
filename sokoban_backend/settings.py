@@ -25,7 +25,8 @@ FRONTEND_DIR = BASE_DIR / 'sokoban-frontend'
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', default='django-insecure-=lqhfgqy79*mov=yd^4!5j7*2ykk3igms+yhu69w96cny22($y')
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY', default='django-insecure-=lqhfgqy79*mov=yd^4!5j7*2ykk3igms+yhu69w96cny22($y')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -139,6 +140,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # if not DEBUG:
 STATIC_ROOT = os.path.join(FRONTEND_DIR, 'dist')
-STATICFILES_STORAGE = ('whitenoise.storage.CompressedManifestStaticFilesStorage')
+STATICFILES_STORAGE = (
+    'whitenoise.storage.CompressedManifestStaticFilesStorage')
 
 # WHITENOISE_ROOT = FRONTEND_DIR / 'dist' / 'root'
